@@ -42,7 +42,7 @@ checkBtn.addEventListener("click", (e) => {
         scoreText.innerText = scoreValue
         highscoreText.innerText = highScore
     }else{
-        messageForGuess.innerText = "Game Over"
+        displayMessage("Game Over")
         document.body.style.backgroundColor = "red"
     }
 })
