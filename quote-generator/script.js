@@ -1,9 +1,13 @@
 const quote = document.querySelector("#quote");
+const quoteContainer = document.querySelector("#quote-container");
 const author = document.querySelector("#author");
-const newQuoteBtn = document.querySelector(".twitter-button");
+const tweetBtn = document.querySelector(".twitter-button");
+const newQuoteBtn = document.querySelector("#new-quote");
+const loader = document.querySelector("#loader");
 
 //get data from quote api
 async function getQuote() {
+  showLoadingSpinner();
   const proxyUrl = "https://corsproxy.io/?";
   const apiUrl = `${proxyUrl}https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json`;
   try {
@@ -22,10 +26,20 @@ async function getQuote() {
       quote.classList.remove("long-quote");
     }
     quote.textContent = data.quoteText;
+    removeLoadingSpinner();
   } catch (err) {
-    getQuote();
     console.log(err);
   }
+}
+
+function showLoadingSpinner() {
+  loader.hidden = false;
+  quoteContainer.hidden = true;
+}
+
+function removeLoadingSpinner() {
+  loader.hidden = true;
+  quoteContainer.hidden = false;
 }
 
 function tweetQuote() {
@@ -35,6 +49,9 @@ function tweetQuote() {
   window.open(twitterUrl, "_blank");
 }
 
-newQuoteBtn.addEventListener("click", tweetQuote);
+tweetBtn.addEventListener("click", tweetQuote);
+
+newQuoteBtn.addEventListener("click", getQuote);
+
 // on load
 getQuote();
