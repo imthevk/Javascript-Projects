@@ -8,6 +8,8 @@ const loader = document.querySelector("#loader");
 //get data from quote api
 async function getQuote() {
   showLoadingSpinner();
+
+  //We need to use a Proxy URL to make our api call in order to avoid proxy CORS error
   const proxyUrl = "https://corsproxy.io/?";
   const apiUrl = `${proxyUrl}https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json`;
   try {
@@ -49,9 +51,9 @@ function tweetQuote() {
   window.open(twitterUrl, "_blank");
 }
 
+//Event listeners
 tweetBtn.addEventListener("click", tweetQuote);
-
 newQuoteBtn.addEventListener("click", getQuote);
 
-// on load
+// on page load
 getQuote();
