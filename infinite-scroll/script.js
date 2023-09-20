@@ -6,39 +6,41 @@ let imagesLoaded = 0;
 // Unsplash API
 // Normally, don't store API Keys like this, but an exception made here because it is free, and the data is publicly available!
 const apiKey = "jFgS8tteGD425f4oZfygQVaVnD6gt6GucN2yyz3xFek";
-const apiUrl = `https://api.unsplash.com/photos/random?client_id=${apiKey}&count=${count}`;
+const apiUrl = `https://api.unsplash.com/photos/random?client_id=${apiKey}&count=${count}&orientation=landscape&topics=nature`;
 let photosArray = [];
 
 //get photos from unsplash api
 async function getPhotos() {
   const response = await fetch(apiUrl);
   photosArray = await response.json();
-  setTimeout(() => {
-    displayPhotos();
-  }, 2000);
+  console.log(photosArray);
+  displayPhotos();
 }
 
 // Create Elements For Links & Photos, Add to DOM
 function displayPhotos() {
   imagesLoaded = 0;
   photosArray.forEach((photo) => {
+    const a = document.createElement("a");
+    setAttributes(a, {
+      href: photo.links.download,
+      target: "_blank",
+    });
     const image = document.createElement("img");
     setAttributes(image, {
       src: photo.urls.full,
       alt: photo.alt_description,
     });
-    imageContainer.appendChild(image);
-    loader.style.display = "none";
+    a.appendChild(image);
+    imageContainer.appendChild(a);
+    loader.hidden = true;
   });
-
-  // Event Listener, check when each is finished loading
-  img.addEventListener("load", imageLoaded);
 }
 getPhotos();
 
 // Helper Function to Set Attributes on DOM Elements
-function setAttributes(ele, attr) {
-  for (const key in attr) {
-    ele.setAttribute(key, attr[key]);
+function setAttributes(element, attributes) {
+  for (const key in attributes) {
+    element.setAttribute(key, attributes[key]);
   }
 }

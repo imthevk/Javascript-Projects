@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans&family=Rubik:wght@400;700&display=swap");
 
 html {
   box-sizing: border-box;
@@ -37,7 +37,7 @@ h1 {
 
 /* Image Container */
 .image-container {
-  margin: 10px 30%;
+  margin: 10px 25%;
 }
 
 .image-container img {
