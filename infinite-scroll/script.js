@@ -5,7 +5,7 @@ let imagesLoaded = 0;
 
 // Unsplash API
 // Normally, don't store API Keys like this, but an exception made here because it is free, and the data is publicly available!
-const apiKey = "jFgS8tteGD425f4oZfygQVaVnD6gt6GucN2yyz3xFek";
+const apiKey = "-KsOXvdzrmis5K5FFHbUNb1HOJks2OpVmYARueRdjAw";
 const apiUrl = `https://api.unsplash.com/photos/random?client_id=${apiKey}&count=${count}&orientation=landscape&topics=nature`;
 let photosArray = [];
 
@@ -34,8 +34,13 @@ function displayPhotos() {
     a.appendChild(image);
     imageContainer.appendChild(a);
     loader.hidden = true;
+    // Event Listener, check when each is finished loading
+    image.addEventListener("load", () => {
+      console.log("image loaded");
+    });
   });
 }
+//on first time load
 getPhotos();
 
 // Helper Function to Set Attributes on DOM Elements
@@ -44,3 +49,17 @@ function setAttributes(element, attributes) {
     element.setAttribute(key, attributes[key]);
   }
 }
+
+function fetchNewPhotos() {
+  // console.log(window.scrollY, "scrollY");
+  // console.log(window.innerHeight, "innerheight");
+  // console.log(document.body.offsetHeight);
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+    // getPhotos();
+    console.log(window.scrollY + window.innerHeight, "scrollY");
+    console.log(window.innerHeight, "innerheight");
+    console.log(document.body.offsetHeight);
+    console.log("load more");
+  }
+}
+// window.addEventListener("scroll", fetchNewPhotos);
