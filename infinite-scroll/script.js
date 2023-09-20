@@ -6,10 +6,10 @@ let photosArray = [];
 let allImageLoaded = false;
 
 // Unsplash API
-// Normally, don't store API Keys like this, but an exception made here because it is free, and the data is publicly available!
-const count = 30;
-const apiKey = "QTh-XZKMsc3wSPAPsNs5Y9wK0odx7-UoME6SHcju2Hg";
-const apiUrl = `https://api.unsplash.com/photos/random?client_id=${apiKey}&count=${count}&orientation=landscape&topics=nature`;
+// Normally, don't store API Keys like this, but an exception made here because it is free, and the data is publicly available!\
+let count = 5;
+const apiKey = "zr0gSKKmFZQ0G406HDw7yKpmHZEBkzFdHKuwBQWNJ_M";
+let apiUrl = `https://api.unsplash.com/photos/random?client_id=${apiKey}&count=${count}&orientation=landscape&topics=nature`;
 
 //get photos from unsplash api
 async function getPhotos() {
@@ -23,6 +23,8 @@ function imageLoaded() {
   if (imagesLoaded === totalImages) {
     allImageLoaded = true;
     loader.hidden = true;
+    count = 30;
+    apiUrl = `https://api.unsplash.com/photos/random?client_id=${apiKey}&count=${count}&orientation=landscape&topics=nature`;
   }
 }
 
