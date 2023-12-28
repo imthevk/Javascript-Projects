@@ -10,6 +10,8 @@ const clearBtn = document.querySelector(".clear-btn");
 
 form.addEventListener("submit", addFruit);
 
+clearBtn.addEventListener("click", clearFruits);
+
 function addFruit(e) {
   e.preventDefault();
   const inputValue = fruit.value;
@@ -35,6 +37,13 @@ function addFruit(e) {
         </button>
       </div>
     `;
+
+    //add event listener to edit and delete buttons
+    const deleteBtn = element.querySelector(".delete-btn");
+    deleteBtn.addEventListener("click", deleteFruits);
+    const editBtn = element.querySelector(".edit-btn");
+    editBtn.addEventListener("click", editFruits);
+
     list.appendChild(element);
     container.classList.add("show-container");
     displayAlert("item added to the list", "success");
@@ -53,4 +62,24 @@ function displayAlert(text, action) {
     alert.textContent = "";
     alert.classList.remove(`alert-${action}`);
   }, 1000);
+}
+
+function deleteFruits(e) {
+  console.log("fruit deleteted");
+  const element = e.currentTarget.parentElement.parentElement;
+  const id = element.dataset.id;
+  list.removeChild(element);
+  displayAlert("fruit removed", "danger");
+}
+
+function editFruits(e) {
+  console.log("edit fruits");
+  const element = e.currentTarget.parentElement.parentElement;
+  editFruitEl = e.currentTarget.parentElement.previousElementSibling;
+  fruit.value = editFruitEl.innerHTML;
+  submitBtn.textContent = "edit";
+}
+
+function clearFruits() {
+  console.log("all fruits removed");
 }
