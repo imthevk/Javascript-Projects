@@ -9,7 +9,7 @@ const loader = document.querySelector("#loader");
 async function getQuote() {
   showLoadingSpinner();
 
-  //We need to use a Proxy URL to make our api call in order to avoid proxy CORS error
+  //avoid cors error by using allow-cors chrome extension
   const apiUrl = `https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json`;
   try {
     const response = await fetch(apiUrl);
