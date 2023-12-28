@@ -182,11 +182,11 @@ fruit List
 }
 .alert {
   margin-bottom: 1rem;
-  height: 1.25rem;
+  height: 2rem;
   display: grid;
   align-items: center;
   text-align: center;
-  font-size: 0.7rem;
+  font-size: 1.2rem;
   border-radius: 0.25rem;
   letter-spacing: var(--spacing);
   text-transform: capitalize;
@@ -215,7 +215,7 @@ fruit List
   border-top-left-radius: var(--radius);
   border-bottom-left-radius: var(--radius);
   border-color: transparent;
-  font-size: 1rem;
+  font-size: 1.2rem;
   flex: 1 0 auto;
   color: var(--clr-grey-5);
 }
@@ -262,6 +262,7 @@ fruit List
   padding: 0.25rem 1rem;
   border-radius: var(--radius);
   text-transform: capitalize;
+  font-size: 1.5em;
 }
 .fruit-item:hover {
   color: var(--clr-grey-5);
@@ -299,7 +300,7 @@ fruit List
 }
 .clear-btn {
   text-transform: capitalize;
-  width: 10rem;
+  width: 20em;
   height: 1.5rem;
   display: grid;
   align-items: center;
@@ -307,7 +308,7 @@ fruit List
   border-color: transparent;
   color: var(--clr-red-light);
   margin: 0 auto;
-  font-size: 0.85rem;
+  font-size: 1em;
   letter-spacing: var(--spacing);
   cursor: pointer;
   transition: var(--transition);
@@ -315,4 +316,7 @@ fruit List
 }
 .clear-btn:hover {
   color: var(--clr-red-dark);
+}
+.btn-container button {
+  font-size: 0.8em;
 }
