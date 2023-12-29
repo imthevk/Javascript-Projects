@@ -8,6 +8,9 @@ const container = document.querySelector(".fruit-container");
 const list = document.querySelector(".fruit-list");
 const clearBtn = document.querySelector(".clear-btn");
 
+let editFlag = false;
+let editFruitEl;
+
 form.addEventListener("submit", addFruit);
 
 clearBtn.addEventListener("click", clearFruits);
@@ -15,16 +18,14 @@ clearBtn.addEventListener("click", clearFruits);
 function addFruit(e) {
   e.preventDefault();
   const inputValue = fruit.value;
-  //   list.textContent = inputValue;
   const id = new Date().getTime().toString();
 
-  if (inputValue !== "") {
+  if (inputValue !== "" && !editFlag) {
     const element = document.createElement("article");
     let attr = document.createAttribute("data-id");
     attr.value = id;
     element.setAttributeNode(attr);
     element.classList.add("fruit-item");
-    console.log(element);
     element.innerHTML = `<p class="title">${inputValue}</p>
       <div class="btn-container">
         <!-- edit btn -->
@@ -47,7 +48,12 @@ function addFruit(e) {
     list.appendChild(element);
     container.classList.add("show-container");
     displayAlert("item added to the list", "success");
-    fruit.value = "";
+    addToLocalStorage(id, inputValue);
+    setBackToDefault();
+  } else if (inputValue !== "" && editFlag) {
+    editFruitEl.innerHTML = inputValue;
+    displayAlert("value chnaged", "success");
+    setBackToDefault();
   } else {
     displayAlert("please enter value", "danger");
   }
@@ -78,8 +84,37 @@ function editFruits(e) {
   editFruitEl = e.currentTarget.parentElement.previousElementSibling;
   fruit.value = editFruitEl.innerHTML;
   submitBtn.textContent = "edit";
+  editFlag = true;
 }
 
 function clearFruits() {
   console.log("all fruits removed");
+  const fruitItem = document.querySelectorAll(".fruit-item");
+  if (fruitItem.length > 0) {
+    fruitItem.forEach((item) => list.removeChild(item));
+  }
 }
+
+// set backt to defaults
+function setBackToDefault() {
+  fruit.value = "";
+  editFlag = false;
+  editID = "";
+  submitBtn.textContent = "submit";
+}
+
+function getLocalStorage() {
+  return localStorage.getItem("list")
+    ? JSON.parse(localStorage.getItem("list"))
+    : [];
+}
+function addToLocalStorage(id, value) {
+  const fruit = { id, value };
+  console.log(fruit);
+  let items = getLocalStorage();
+  console.log(items);
+  items.push(fruit);
+  localStorage.setItem("list", JSON.stringify(items));
+}
+
+console.log(getLocalStorage());
