@@ -13,7 +13,6 @@ updateRating(0);
 // Adding click event listeners to each star element
 starsEl.forEach((star, i) =>
   star.addEventListener("click", () => {
-    console.log(i);
     // When a star is clicked, update the rating with its index
     updateRating(i);
   })

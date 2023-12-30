@@ -11,6 +11,8 @@ const clearBtn = document.querySelector(".clear-btn");
 let editFlag = false;
 let editFruitEl;
 
+window.addEventListener("DOMContentLoaded", setupFruitList);
+
 form.addEventListener("submit", addFruit);
 
 clearBtn.addEventListener("click", clearFruits);
@@ -44,7 +46,6 @@ function addFruit(e) {
     deleteBtn.addEventListener("click", deleteFruits);
     const editBtn = element.querySelector(".edit-btn");
     editBtn.addEventListener("click", editFruits);
-
     list.appendChild(element);
     container.classList.add("show-container");
     displayAlert("item added to the list", "success");
@@ -103,11 +104,6 @@ function setBackToDefault() {
   submitBtn.textContent = "submit";
 }
 
-function getLocalStorage() {
-  return localStorage.getItem("list")
-    ? JSON.parse(localStorage.getItem("list"))
-    : [];
-}
 function addToLocalStorage(id, value) {
   const fruit = { id, value };
   console.log(fruit);
@@ -116,5 +112,42 @@ function addToLocalStorage(id, value) {
   items.push(fruit);
   localStorage.setItem("list", JSON.stringify(items));
 }
+function getLocalStorage() {
+  return localStorage.getItem("list")
+    ? JSON.parse(localStorage.getItem("list"))
+    : [];
+}
 
-console.log(getLocalStorage());
+function createFruitList(id, value) {
+  const element = document.createElement("article");
+  let attr = document.createAttribute("data-id");
+  attr.value = id;
+  element.setAttributeNode(attr);
+  element.classList.add("fruit-item");
+  element.innerHTML = `<p class="title">${value}</p>
+            <div class="btn-container">
+              <!-- edit btn -->
+              <button type="button" class="edit-btn">
+                <i class="fas fa-edit"></i>
+              </button>
+              <!-- delete btn -->
+              <button type="button" class="delete-btn">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          `;
+  //add event listener to edit and delete buttons
+  const deleteBtn = element.querySelector(".delete-btn");
+  deleteBtn.addEventListener("click", deleteFruits);
+  const editBtn = element.querySelector(".edit-btn");
+  editBtn.addEventListener("click", editFruits);
+  list.appendChild(element);
+}
+
+function setupFruitList() {
+  let items = getLocalStorage();
+  if (items.length > 0) {
+    items.forEach((item) => createFruitList(item.id, item.value));
+  }
+  container.classList.add("show-container");
+}
